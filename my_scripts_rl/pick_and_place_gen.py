@@ -585,13 +585,13 @@ if __name__ == "__main__":
     # PICK MOTION
     dmp_path = '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl'
     new_goal = np.array([0.0, -0.2, 0.0  ,  0, 0.7071068, 0.7071068, 0 ])
-    joint_traj_pick, time_stamps_pick, goal = gen_trajectory(dmp_path,goal=new_goal,visualize=False, store_cart_traj=True, name='pick')
+    joint_traj_pick, time_stamps_pick, goal = gen_trajectory(dmp_path,goal=new_goal,visualize=False, store_cart_traj=False, name='pick')
     save_trajectory_data(joint_traj_pick, time_stamps_pick, "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2pick.pkl")
 
     # UP MOTION
     dmp_path = '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/pick2home.pkl'
     new_start = np.array([0.0, -0.2, 0.0  ,  0, 0.7071068, 0.7071068, 0 ])
-    joint_traj_up, time_stamps_up, goal = gen_trajectory(dmp_path,start=new_start,visualize=False,store_cart_traj=True, name="move_with_cube")
+    joint_traj_up, time_stamps_up, goal = gen_trajectory(dmp_path,start=new_start,visualize=False,store_cart_traj=False, name="move_with_cube")
     save_trajectory_data(joint_traj_up, time_stamps_up,  "/root/catkin_ws/src/my_scripts_rl/recordings/traj/pick2home.pkl")
 
 
@@ -599,14 +599,14 @@ if __name__ == "__main__":
     dmp_path = '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl'
     new_start = goal
     new_goal = np.array([0.14, 0.14, 0,   0, 0.7071068, -0.7071068, 0])
-    joint_traj_place, time_stamps_place, goal = gen_trajectory(dmp_path,start=new_start,goal=new_goal,visualize=False,store_cart_traj=True, name='place_cube')
+    joint_traj_place, time_stamps_place, goal = gen_trajectory(dmp_path,start=new_start,goal=new_goal,visualize=False,store_cart_traj=False, name='place_cube')
     save_trajectory_data(joint_traj_place, time_stamps_place,  "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2place.pkl")
 
 
     # HOME MOTION
     dmp_path = '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/pick2home.pkl'
     new_start = goal
-    joint_traj_home, time_stamps_home, goal = gen_trajectory(dmp_path,start=new_start,visualize=False,store_cart_traj=True, name='back_home')
+    joint_traj_home, time_stamps_home, goal = gen_trajectory(dmp_path,start=new_start,visualize=False,store_cart_traj=False, name='back_home')
     save_trajectory_data(joint_traj_home, time_stamps_home,  "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_place2home.pkl")
 
 

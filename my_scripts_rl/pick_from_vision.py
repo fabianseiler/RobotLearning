@@ -10,6 +10,7 @@ import pickle
 import os
 import time
 from scipy.interpolate import interp1d
+from scipy.spatial.transform import Rotation as R
 import rospy
 from sensor_msgs.msg import JointState
 
@@ -284,7 +285,7 @@ class DMPMotionGenerator:
             # Extract current pose
             pose = trajectory[i]
             
-            # Convert to KDL Frame
+            #Convert to KDL Frame
             frame = PyKDL.Frame(
                 PyKDL.Rotation(
                     pose[0, 0], pose[0, 1], pose[0, 2],
@@ -293,6 +294,10 @@ class DMPMotionGenerator:
                 ),
                 PyKDL.Vector(pose[0, 3], pose[1, 3], pose[2, 3])
             )
+            # frame = PyKDL.Frame(
+            #     PyKDL.Rotation.Identity(),
+            #     PyKDL.Vector(pose[0, 3], pose[1, 3], pose[2, 3])
+            # )
             
             # Prepare output joint array
             q_out = PyKDL.JntArray(num_joints)
@@ -619,7 +624,28 @@ def gripper_orientation_pick(position):
     pose = np.concatenate([position, quat])
     return pose
 
-def gen_pick_and_place(path, pick_position, place_position):
+def rotate_pose_around_y(pose, phi=0.0):
+    # Extract position and orientation
+    position = pose[:3]
+    orientation_quat = pose[3:]
+
+    # Convert to scipy Rotation object
+    r_orig = R.from_quat(orientation_quat)
+
+    # Create Y-axis rotation quaternion (in world or local frame depending on order)
+    r_y = R.from_euler('y', phi)
+
+    # Apply rotation: r_y * r_orig rotates the pose in world frame
+    r_new = r_y * r_orig  # For world frame rotation
+
+    # If you want to rotate in local pose frame, use: r_new = r_orig * r_y
+
+    # Combine position with new orientation
+    new_pose = np.concatenate([position, r_new.as_quat()])
+
+    return new_pose
+
+def gen_pick_and_place(path, pick_position, place_position, pick_angle = 0.0, place_angle=0.0):
     """
     Computes orientation such that the gripper is allway in pointing down the local z axis
     and the x-axis is alway pointing toward the origin of the xy-plane
@@ -633,77 +659,110 @@ def gen_pick_and_place(path, pick_position, place_position):
         np.ndarray: joint trajectories 
     """
 
-    up_orientation = np.array([0.3826834, 0, 0.9238795, 0 ])
+    #up_orientation = np.array([0.3826834, 0, 0.9238795, 0 ])
     position_home = np.array([0.12 ,0 ,0.17]) 
-    pose_home = np.concatenate([position_home, up_orientation])
-    joint_traj = np.empty(6,dtype=object)
-    time_stamps = np.empty(6,dtype=object)
+    #pose_home = np.concatenate([position_home, up_orientation])
+    joint_traj = np.empty(7,dtype=object)
+    time_stamps = np.empty(7,dtype=object)
 
-    # HOME --> PICK MOTION
+    # HOME --> PICK MOTION Above
     dmp_path = '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl'
+    position = pick_position.copy()
+    position[2] = 0.2
+    pose = gripper_orientation_pick(position)
+    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,goal=pose,visualize=False, store_cart_traj=False, name='pick1')
+    #save_trajectory_data(joint_traj[0], time_stamps[0], "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2pick.pkl")
+
+    # Pick above --> Pick
+    new_start = goal
     position = pick_position
     pose = gripper_orientation_pick(position)
-    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,goal=pose,visualize=False, store_cart_traj=True, name='pick')
-    save_trajectory_data(joint_traj[0], time_stamps[0], "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2pick.pkl")
+    pose =  rotate_pose_around_y(pose,pick_angle)
+    joint_traj[1], time_stamps[1], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='pick2')
 
     # Pick --> PickUp
     new_start = goal
-    position[-1] += 0.04
+    position = pick_position.copy()
+    position[2] = 0.2
     pose = gripper_orientation_pick(position)
-    joint_traj[1], time_stamps[1], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False,store_cart_traj=True, name="move_with_cube")
-   
-    # PickUp --> Home
+    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='move')
+
+    # PickUp --> PlaceUp
     new_start = goal
-    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose_home,visualize=False,store_cart_traj=True, name="move_with_cube")
-  
-    # Home --> Place
+    position = place_position.copy()
+    position[2] = 0.2
+    pose = gripper_orientation_pick(position)
+    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    joint_traj[3], time_stamps[3], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='place1')
+
+    # PlaceUp --> PlaceDown
+    new_start = goal
     position = place_position
     pose = gripper_orientation_pick(position)
-    joint_traj[3], time_stamps[3], goal = gen_trajectory(dmp_path,goal=pose,visualize=False, store_cart_traj=True, name='pick')
-   
-    # Pick --> PickUp
-   # new_start = goal
-   # position[-1] += 0.04
-   # pose = gripper_orientation_pick(position)
-   # joint_traj[4], time_stamps[4], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False,store_cart_traj=True, name="move_with_cube")
-   
-    # PickUp --> Home
+    pose = rotate_pose_around_y(pose,place_angle)
+    joint_traj[4], time_stamps[4], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='place2')
+
+    # PlaceDown --> PlaceUp
     new_start = goal
-    joint_traj[5], time_stamps[5], goal = gen_trajectory(dmp_path,start=new_start,goal=pose_home,visualize=False,store_cart_traj=True, name="move_with_cube")
-   
+    position = place_position.copy()
+    position[2] = 0.2
+    pose = gripper_orientation_pick(position)
+    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    joint_traj[5], time_stamps[5], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='place3')
+
+    # PlaceUp --> Home
+    new_start = goal
+    position = position_home
+    pose = gripper_orientation_pick(position)
+    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    joint_traj[6], time_stamps[6], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='home')
+
+
     return joint_traj, time_stamps
 
-def execute_pick_and_place(pick, place):
+def execute_pick_and_place(pick, place,pick_angle=0.0, place_angle=0.0):
     open_gripper = -0.01
     close_gripper_full = 0.01
 
     position_pick = pick
     position_place = place
-    joint_traj_1, time_stamps_1 = gen_pick_and_place( '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl',pick_position=position_pick,place_position=position_place)
+    joint_traj_1, time_stamps_1 = gen_pick_and_place( '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl',
+                                                     pick_position=position_pick,
+                                                     place_position=position_place,
+                                                     pick_angle=pick_angle,
+                                                     place_angle=place_angle
+                                                    )
+    
 
     # ROS Publishing
     try:
         publisher = ROSTrajectoryPublisher(['joint1', 'joint2','joint3','joint4','joint5','joint6'])
         publisher.publish_gripper(open_gripper)
         publisher.publish_trajectory(joint_traj_1[0], time_stamps_1[0])
-        publisher.set_gripper(gripper_position=close_gripper_full)
         publisher.publish_trajectory(joint_traj_1[1], time_stamps_1[1])
+        publisher.set_gripper(gripper_position=close_gripper_full)
         publisher.publish_trajectory(joint_traj_1[2], time_stamps_1[2])
         publisher.publish_trajectory(joint_traj_1[3], time_stamps_1[3])
-        publisher.set_gripper(gripper_position=open_gripper)
         publisher.publish_trajectory(joint_traj_1[4], time_stamps_1[4])
+        publisher.set_gripper(gripper_position=open_gripper)
         publisher.publish_trajectory(joint_traj_1[5], time_stamps_1[5])
+        publisher.publish_trajectory(joint_traj_1[6], time_stamps_1[6])
+       
+    
         
     except rospy.ROSInterruptException:
         print("ROS publishing interrupted.")
 
 # -------------------------------------- MAIN --------------------------------------# 
 if __name__ == "__main__":
-    position_pick = np.array([0.12, -0.12, 0.0])
-    position_place = np.array([0.12, 0.12, 0.0])
-    execute_pick_and_place(position_pick,position_place)
+    position_pick = np.array([0.0, 0.2, 0.0])
+    pick_angle = np.deg2rad(0)
+    position_place = np.array([0.12, -0.12, 0.0])
+    execute_pick_and_place(position_pick,position_place,pick_angle)
 
-    position_pick = np.array([0.1, 0.0, 0.0])
-    position_place = np.array([0.12, 0.12, 0.1])
-    execute_pick_and_place(position_pick,position_place)
+   # position_pick = np.array([0.1, 0.0, 0.0])
+   # position_place = np.array([0.12, 0.12, 0.1])
+   # execute_pick_and_place(position_pick,position_place)
     

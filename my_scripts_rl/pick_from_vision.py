@@ -6,6 +6,7 @@ import rosbag
 from tf.transformations import quaternion_matrix
 from tf.transformations import quaternion_from_matrix
 from movement_primitives.dmp import CartesianDMP
+import tf
 import pickle
 import os
 import time
@@ -370,10 +371,12 @@ class DMPMotionGenerator:
         fig.show()
 
 
-class ROSTrajectoryPublisher:
+class ROS_OM_Node:
     def __init__(self, joint_names, topic_name='/gravity_compensation_controller/traj_joint_states', rate_hz=20): # 20
-        rospy.init_node("dmp_trajectory_publisher", anonymous=True)
+        if not rospy.core.is_initialized():
+            rospy.init_node("om_pick_and_place", anonymous=True)
         self.publisher = rospy.Publisher(topic_name, JointState, queue_size=10)
+        self.listener = tf.TransformListener()
         
         joint_names.append("gripper")
         # print(f"joint names: {joint_names}")
@@ -426,19 +429,48 @@ class ROSTrajectoryPublisher:
         rospy.sleep(1.5)
         self.rate.sleep()
 
+    def execute_pick_and_place(self,pick, place,pick_angle=0.0, place_angle=0.0):
+        open_gripper = -0.01
+        close_gripper_full = 0.01
 
-    def publish_gripper(self, position_value=0.01):
-        self.gripper = position_value
-       # msg = JointState()
-       # msg.header.stamp = rospy.Time.now()
-       # msg.name = ["gripper"]  # Ensure it matches the actual URDF joint name
-       # msg.position = [position_value]
-       # msg.velocity = [0.0]
-       # msg.effort = [0.0]
-        
-       # self.publisher.publish(msg)
-       # print(f"[ROS] Published gripper position: {position_value}")
-       # self.rate.sleep()
+        position_pick = pick
+        position_place = place
+        joint_traj_1, time_stamps_1 = gen_pick_and_place( '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl',
+                                                        pick_position=position_pick,
+                                                        place_position=position_place,
+                                                        pick_angle=pick_angle,
+                                                        place_angle=place_angle
+                                                        )
+        # ROS Publishing
+        try:
+            self.gripper = open_gripper
+            self.publish_trajectory(joint_traj_1[0], time_stamps_1[0])
+            self.publish_trajectory(joint_traj_1[1], time_stamps_1[1])
+            self.set_gripper(gripper_position=close_gripper_full)
+            self.publish_trajectory(joint_traj_1[2], time_stamps_1[2])
+            self.publish_trajectory(joint_traj_1[3], time_stamps_1[3])
+            self.publish_trajectory(joint_traj_1[4], time_stamps_1[4])
+            self.set_gripper(gripper_position=open_gripper)
+            self.publish_trajectory(joint_traj_1[5], time_stamps_1[5])
+            self.publish_trajectory(joint_traj_1[6], time_stamps_1[6])
+           
+        except rospy.ROSInterruptException:
+            print("ROS publishing interrupted.")
+    
+    def get_object_pose_world(self,target_frame="world", object_frame="detected_object"):
+        try:
+            self.listener.waitForTransform(target_frame, object_frame, rospy.Time(0), rospy.Duration(0))
+            (trans, rot) = self.listener.lookupTransform(target_frame, object_frame, rospy.Time(0))
+
+            rospy.loginfo("Object position in %s frame:", target_frame)
+            rospy.loginfo("  Translation: x=%.3f, y=%.3f, z=%.3f", *trans)
+            rospy.loginfo("  Orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f", *rot)
+
+            return np.array(trans), np.array(rot)
+
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
+            rospy.logerr("Transform failed: %s", str(e))
+            return None, None
 # -------------------------------------- Helper functions --------------------------------------# 
 def animation_callback(step, graph, chain, joint_trajectory):
     """Animation callback for visualization"""
@@ -559,7 +591,7 @@ def gen_trajectory(dmp_path, start=np.array([0,0,0,0,0,0,0]), goal=np.array([0,0
         save_trajectory_data(trajectory, T,store_cart_traj_path)
 
     # Visualize the trajectory
-    trajectory, IK_joint_trajectory ,T = dmp_gen.compute_IK_trajectory(trajectory, T ,subsample_factor=10)
+    trajectory, IK_joint_trajectory ,T = dmp_gen.compute_IK_trajectory(trajectory, T ,subsample_factor=100) # 10
     #trajectory, IK_joint_trajectory, T = dmp_gen.compute_IK_trajectory_KDL(trajectory, T)
     if visualize == True:
         dmp_gen.visualize_trajectory(trajectory, IK_joint_trajectory)
@@ -660,7 +692,7 @@ def gen_pick_and_place(path, pick_position, place_position, pick_angle = 0.0, pl
     """
 
     #up_orientation = np.array([0.3826834, 0, 0.9238795, 0 ])
-    position_home = np.array([0.12 ,0 ,0.17]) 
+    position_home = np.array([0.05 ,0 ,0.17]) 
     #pose_home = np.concatenate([position_home, up_orientation])
     joint_traj = np.empty(7,dtype=object)
     time_stamps = np.empty(7,dtype=object)
@@ -722,47 +754,26 @@ def gen_pick_and_place(path, pick_position, place_position, pick_angle = 0.0, pl
 
     return joint_traj, time_stamps
 
-def execute_pick_and_place(pick, place,pick_angle=0.0, place_angle=0.0):
-    open_gripper = -0.01
-    close_gripper_full = 0.01
-
-    position_pick = pick
-    position_place = place
-    joint_traj_1, time_stamps_1 = gen_pick_and_place( '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl',
-                                                     pick_position=position_pick,
-                                                     place_position=position_place,
-                                                     pick_angle=pick_angle,
-                                                     place_angle=place_angle
-                                                    )
-    
-
-    # ROS Publishing
-    try:
-        publisher = ROSTrajectoryPublisher(['joint1', 'joint2','joint3','joint4','joint5','joint6'])
-        publisher.publish_gripper(open_gripper)
-        publisher.publish_trajectory(joint_traj_1[0], time_stamps_1[0])
-        publisher.publish_trajectory(joint_traj_1[1], time_stamps_1[1])
-        publisher.set_gripper(gripper_position=close_gripper_full)
-        publisher.publish_trajectory(joint_traj_1[2], time_stamps_1[2])
-        publisher.publish_trajectory(joint_traj_1[3], time_stamps_1[3])
-        publisher.publish_trajectory(joint_traj_1[4], time_stamps_1[4])
-        publisher.set_gripper(gripper_position=open_gripper)
-        publisher.publish_trajectory(joint_traj_1[5], time_stamps_1[5])
-        publisher.publish_trajectory(joint_traj_1[6], time_stamps_1[6])
-       
-    
-        
-    except rospy.ROSInterruptException:
-        print("ROS publishing interrupted.")
-
 # -------------------------------------- MAIN --------------------------------------# 
 if __name__ == "__main__":
+    try:
+        om_node = ROS_OM_Node(['joint1', 'joint2','joint3','joint4','joint5','joint6'])
+
+    except rospy.ROSInterruptException:
+        print("ROS node interrupted.")
+
+    # Get object pose
+    #object_position, object_orienation = om_node.get_object_pose_world()
+
+    # Execute given pick position
     position_pick = np.array([0.0, 0.2, 0.0])
     pick_angle = np.deg2rad(0)
+    place_angle = np.deg2rad(0)
     position_place = np.array([0.12, -0.12, 0.0])
-    execute_pick_and_place(position_pick,position_place,pick_angle)
+    om_node.execute_pick_and_place(position_pick,
+                                   position_place,
+                                   pick_angle,      
+                                   place_angle
+                                  )
 
-   # position_pick = np.array([0.1, 0.0, 0.0])
-   # position_place = np.array([0.12, 0.12, 0.1])
-   # execute_pick_and_place(position_pick,position_place)
     

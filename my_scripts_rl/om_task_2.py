@@ -18,7 +18,7 @@ class ContinuousOMNode:
 
     def get_object_pose_world(self,target_frame="world", object_frame="detected_object"):
             try:
-                self.listener.waitForTransform(target_frame, object_frame, rospy.Time(0), rospy.Duration(0))
+                self.listener.waitForTransform(target_frame, object_frame, rospy.Time(0), rospy.Duration(15.0))
                 (trans, rot) = self.listener.lookupTransform(target_frame, object_frame, rospy.Time(0))
 
                 rospy.loginfo("Object position in %s frame:", target_frame)
@@ -66,7 +66,11 @@ class ContinuousOMNode:
             place_position = np.array([0.12, -0.12, 0.0])
 
             # Execute pick and place
-            self.om_node.execute_pick_and_place(pick_position, place_position)
+            self.om_node.execute_pick_and_place(pick_position,
+                                                place_position,
+                                                np.deg2rad(60),
+                                                np.deg2rad(60)
+                                                )
 
             self.rate.sleep()
 
@@ -79,9 +83,10 @@ class ContinuousOMNode:
         trans, rot = None, None
         while not rospy.is_shutdown():
             trans, rot = self.get_object_pose_world()
+           # trans, rot = self.get_object_pose_world(object_frame=obj_name)
             if trans is not None:
-                break
-            rospy.loginfo(f"Waiting for transform for '{obj_name}'...")   # TODO: Hier zeitlichen Abbruch einbauen
+                return trans
+            rospy.loginfo(f"Waiting for transform for '{obj_name}'...") 
             rospy.sleep(0.5)
 
     def run_set_object(self):
@@ -98,21 +103,29 @@ class ContinuousOMNode:
                 break
 
             trans = self.get_object_trans(obj_name)
+            print("Trans:", trans)
+            try:
+                # Read object frame name from console
+                obj_name = input("OK?: ")
+            except EOFError:
+                break
 
             # Execute pick and place
             pick_position = np.array(trans)
-            self.om_node.execute_pick(pick_position)
-
-            # check for pick sucessfull:
-            # TODO ---------------------
-                # ckeck if block is stil in the scene --> wenn nicht --> place ausführen 
-                                                   #  --> wenn schon --> nochmal pick auf neue position
-            #---------------------------
+            pick_position = pick_position + np.array([0.0 0.02, 0.04]) # set offset
+            #self.om_node.execute_pick(pick_position)
 
             # Define a place position or reuse pick_position
-            place_position = self.get_object_trans("two")
-            place_position = place_position + np.array([0.0, 0.0, 0.01])
-            self.om_node.execute_place(place_position)
+            #place_position = self.get_object_trans("two")
+            place_position = np.array([0.12, -0.12, 0.0])
+            place_position = place_position + np.array([0.0, 0.0, 0.02]) # set offset
+            #self.om_node.execute_place(place_position)
+
+            self.om_node.execute_pick_and_place(pick_position,
+                                                place_position,
+                                                np.deg2rad(40),
+                                                np.deg2rad(40)
+                                                )
 
             # Small delay before next iteration
             self.rate.sleep()

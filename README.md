@@ -8,6 +8,6 @@
 
 The video file  **Example_pick_and_place.mp4** shows an example we recorded with a camera to showcase the functionallity of a completed motion consisting of four partial tasks.
 
-The video file **Pick_with_Vision.mp4** shows an example of where we stacked one block on top of another to show the functionality of the object detection and path planning.
+The video file **Pick_with_Vision.mp4 & Pick_with_Vision_2** show an example of where we stacked one block on top of another to show the functionality of the object detection and path planning.
 
 The video file **Pick_Place_vision_enabled.mp4** shows an example fo where we recorded the object detection followed by a pick and place motion, without stacking it on top of an other block.

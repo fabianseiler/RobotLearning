@@ -51,7 +51,7 @@ This script controls the pick-and-place process using the `ContinuousOMNode` cla
   5. Computes a fixed offset for the place position.
   6. Calls `execute_pick_and_place()` to move the arm.
 
-> The function `execute_pick_and_place()` is extended to manage **gripper orientation**, always aligning it normally to the robot base for better IK solutions. The approach and departure angles can be customized via `pick_angle` and `place_angle`.
+> The function `execute_pick_and_place()`in the necessary `pick_from_vision_V3.py` file is extended to manage **gripper orientation**, always aligning it normally to the robot base for better IK solutions. The approach and departure angles can be customized via `pick_angle` and `place_angle`.
 
 ---
 

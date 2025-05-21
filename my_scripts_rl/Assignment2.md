@@ -31,7 +31,7 @@ This script handles object detection and pose estimation using YOLO and the Real
 
 ---
 
-### Main Execution: `om_task.py`
+### Main Execution: `om_task_2.py`
 
 This script controls the pick-and-place process using the `ContinuousOMNode` class.
 
@@ -76,7 +76,7 @@ python3 rl_detect.py
 
 ```
 cd src/my_scripts_rl/
-python3 om_task.py
+python3 om_task_2.py
 ```
 4. **Input the object name** when prompted. The robot will perform the task in simulation.
 
@@ -98,7 +98,7 @@ python3 rl_detect.py
 
 ```
 cd src/my_scripts_rl/
-python3 om_task.py
+python3 om_task_2.py
 ```
 4. **Input the object name** when prompted. The robot will perform the task on real hardware.
 

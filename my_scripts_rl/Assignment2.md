@@ -7,9 +7,8 @@ All relevant scripts are located in the `/my_scripts_rl/` folder.
 ---
 
 ## Workflow Summary
-
-1. **Start the object detection node** by running `rs_detect.py`.
-2. **Run the pick-and-place execution script** `om_task.py`.
+1. **Run the pick-and-place execution script** `om_task_2.py`.
+2. **Start the object detection node** by running `rs_detect.py`.
 3. **Input the object name** (e.g., `one`, `two`, `three`) when prompted.
 4. The robot will:
    - Detect the object using RealSense and YOLO.
@@ -29,7 +28,6 @@ This script handles object detection and pose estimation using YOLO and the Real
 - Computes 3D translation and orientation from depth and RGB.
 - Publishes the object's pose via `/tf` for use by other nodes.
 
-> **Important:** This script must be running before launching the pick-and-place execution.
 
 ---
 
@@ -53,7 +51,7 @@ This script controls the pick-and-place process using the `ContinuousOMNode` cla
   5. Computes a fixed offset for the place position.
   6. Calls `execute_pick_and_place()` to move the arm.
 
-> The function `execute_pick_and_place()` is extended to manage **gripper orientation**, always aligning it normally to the robot base. The approach and departure angles can be customized via `pick_angle` and `place_angle`.
+> The function `execute_pick_and_place()` is extended to manage **gripper orientation**, always aligning it normally to the robot base for better IK solutions. The approach and departure angles can be customized via `pick_angle` and `place_angle`.
 
 ---
 
@@ -108,4 +106,4 @@ python3 om_task.py
 ### Notes
 Supported object names are those defined and recognized by the YOLO model (one, two, three, etc.).
 
-Ensure the RealSense node is active and publishing transforms (/tf) before starting the motion node.
+Ensure the RealSense node is active and publishing transforms (/tf) 

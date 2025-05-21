@@ -429,11 +429,11 @@ class ROS_OM_Node:
         rospy.sleep(1.5)
         self.rate.sleep()
 
-    def execute_pick(self,pick, pick_angle=0.0):
+    def execute_pick(self, pick, pick_angle=0.0):
         open_gripper = -0.01
-        close_gripper_full = 0.01
+        close_gripper_full = 0.002
         position_home = np.array([0.05 ,0 ,0.17]) 
-
+        print("pick:", pick)
         position_pick = pick
         position_place = position_home
         joint_traj_1, time_stamps_1 = gen_pick( '/root/catkin_ws/src/my_scripts_rl/recordings/dmp/home2pick.pkl',
@@ -453,7 +453,7 @@ class ROS_OM_Node:
 
     def execute_place(self,place, place_angle=0.0):
         open_gripper = -0.01
-        close_gripper_full = 0.01
+        close_gripper_full = 0.002
         position_home = np.array([0.05 ,0 ,0.17]) 
 
         position_place = place
@@ -475,7 +475,7 @@ class ROS_OM_Node:
 
     def execute_pick_and_place(self,pick, place,pick_angle=0.0, place_angle=0.0):
         open_gripper = -0.01
-        close_gripper_full = 0.01
+        close_gripper_full = 0.002
 
         position_pick = pick
         position_place = place
@@ -635,7 +635,7 @@ def gen_trajectory(dmp_path, start=np.array([0,0,0,0,0,0,0]), goal=np.array([0,0
         save_trajectory_data(trajectory, T,store_cart_traj_path)
 
     # Visualize the trajectory
-    trajectory, IK_joint_trajectory ,T = dmp_gen.compute_IK_trajectory(trajectory, T ,subsample_factor=100) # 10
+    trajectory, IK_joint_trajectory ,T = dmp_gen.compute_IK_trajectory(trajectory, T ,subsample_factor=10) # 10
     #trajectory, IK_joint_trajectory, T = dmp_gen.compute_IK_trajectory_KDL(trajectory, T)
     if visualize == True:
         dmp_gen.visualize_trajectory(trajectory, IK_joint_trajectory)
@@ -746,7 +746,7 @@ def gen_pick_and_place(path, pick_position, place_position, pick_angle = 0.0, pl
     position = pick_position.copy()
     position[2] = 0.2
     pose = gripper_orientation_pick(position)
-    pose = rotate_pose_around_y(pose,np.deg2rad(45))
+    pose = rotate_pose_around_y(pose,np.deg2rad(90))
     joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,goal=pose,visualize=False, store_cart_traj=False, name='pick1')
     #save_trajectory_data(joint_traj[0], time_stamps[0], "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2pick.pkl")
 
@@ -822,8 +822,8 @@ def gen_pick(path, pick_position, position_home= np.array([0.05 ,0 ,0.17]), pick
     position = pick_position.copy()
     position[2] = 0.2
     pose = gripper_orientation_pick(position)
-    pose = rotate_pose_around_y(pose,np.deg2rad(45))
-    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,goal=pose,visualize=False, store_cart_traj=False, name='pick1')
+    pose = rotate_pose_around_y(pose,np.deg2rad(20))
+    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,goal=pose,visualize=True, store_cart_traj=False, name='pick1')
     #save_trajectory_data(joint_traj[0], time_stamps[0], "/root/catkin_ws/src/my_scripts_rl/recordings/traj/traj_home2pick.pkl")
 
     # Pick above --> Pick
@@ -838,7 +838,7 @@ def gen_pick(path, pick_position, position_home= np.array([0.05 ,0 ,0.17]), pick
     position = position_home
     pose = gripper_orientation_pick(position)
     pose = rotate_pose_around_y(pose,np.deg2rad(45))
-    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=True, store_cart_traj=False, name='move')
+    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='move')
 
     return joint_traj, time_stamps
 
@@ -870,7 +870,7 @@ def gen_place(path, place_position,position_home= np.array([0.05 ,0 ,0.17]), pla
     position = place_position
     pose = gripper_orientation_pick(position)
     pose = rotate_pose_around_y(pose,place_angle)
-    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,start=pose_start,goal=pose,visualize=True, store_cart_traj=False, name='place2')
+    joint_traj[0], time_stamps[0], goal = gen_trajectory(dmp_path,start=pose_start,goal=pose,visualize=False, store_cart_traj=False, name='place2')
 
     # PlaceDown --> PlaceUp
     new_start = goal
@@ -878,35 +878,39 @@ def gen_place(path, place_position,position_home= np.array([0.05 ,0 ,0.17]), pla
     position[2] = 0.2
     pose = gripper_orientation_pick(position)
     pose = rotate_pose_around_y(pose,np.deg2rad(45))
-    joint_traj[1], time_stamps[1], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=True, store_cart_traj=False, name='place3')
+    joint_traj[1], time_stamps[1], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='place3')
 
     # PlaceUp --> Home
     new_start = goal
     position = position_home
     pose = gripper_orientation_pick(position)
     pose = rotate_pose_around_y(pose,np.deg2rad(45))
-    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=True, store_cart_traj=False, name='home')
+    joint_traj[2], time_stamps[2], goal = gen_trajectory(dmp_path,start=new_start,goal=pose,visualize=False, store_cart_traj=False, name='home')
 
 
-    return joint_traj, time_stamps    
+    return joint_traj, time_stamps
+
+    def main():
+        # Initialize ROS node
+        try:
+            om_node = ROS_OM_Node(['joint1', 'joint2','joint3','joint4','joint5','joint6'])
+
+        except rospy.ROSInterruptException:
+            print("ROS node interrupted.")
+
+        # Get object pose
+        #object_position, object_orienation = om_node.get_object_pose_world()
+
+        # Execute given pick position
+        position_pick = np.array([0.0, 0.2, 0.0])
+        print("position_pick:", position_pick)
+        pick_angle = np.deg2rad(0)
+        place_angle = np.deg2rad(0)
+        position_place = np.array([0.12, -0.12, 0.0])
+        om_node.execute_pick(position_pick, pick_angle)
+        om_node.execute_place(position_place, place_angle)    
 
 # -------------------------------------- MAIN --------------------------------------# 
 if __name__ == "__main__":
-    try:
-        om_node = ROS_OM_Node(['joint1', 'joint2','joint3','joint4','joint5','joint6'])
-
-    except rospy.ROSInterruptException:
-        print("ROS node interrupted.")
-
-    # Get object pose
-    #object_position, object_orienation = om_node.get_object_pose_world()
-
-    # Execute given pick position
-    position_pick = np.array([0.0, 0.2, 0.0])
-    pick_angle = np.deg2rad(0)
-    place_angle = np.deg2rad(0)
-    position_place = np.array([0.12, -0.12, 0.0])
-    om_node.execute_pick(position_pick, pick_angle)
-    om_node.execute_place(position_place, place_angle)
-
+    main()
     

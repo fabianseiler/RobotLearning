@@ -1,0 +1,72 @@
+[
+  {
+    "ID": 1,
+    "problem": "All mammals are warm-blooded. Dolphins are mammals. Are dolphins warm-blooded?",
+    "correct_answer": "Yes, dolphins are warm-blooded.",
+    "difficulty": "easy",
+    "problem_type": "deductive_logic"
+  },
+  {
+    "ID": 2,
+    "problem": "Sarah finished lunch before Tom started cooking. Who ate first?",
+    "correct_answer": "Sarah ate first.",
+    "difficulty": "easy",
+    "problem_type": "temporal_reasoning"
+  },
+  {
+    "ID": 3,
+    "problem": "Battery is to flashlight as ______ is to car. Fill in the gap.",
+    "correct_answer": "Engine/Fuel",
+    "difficulty": "medium",
+    "problem_type": "analogy"
+  },
+  {
+    "ID": 4,
+    "problem": "If I had left the house five minutes earlier, I would have caught the bus. What happened?",
+    "correct_answer": "You missed the bus because you left the house too late.",
+    "difficulty": "medium",
+    "problem_type": "counterfactual_reasoning"
+  },
+  {
+    "ID": 5,
+    "problem": "Alice is older than Bob. Bob is older than Carol. Who is the oldest?",
+    "correct_answer": "Alice is the oldest.",
+    "difficulty": "medium",
+    "problem_type": "transitive_reasoning"
+  },
+  {
+    "ID": 6,
+    "problem": "A bag holds 4 red, 3 blue, and 5 green marbles. You draw two marbles in a row without replacement. What is the probability the two marbles are different colors? Given that the first marble is red, what is now the probability the second is green?",
+    "correct_answer": "First: 47/66. Second (given red first): 5/11.",
+    "difficulty": "hard",
+    "problem_type": "probabilistic_reasoning"
+  },
+  {
+    "ID": 7,
+    "problem": "All hummingbirds are birds. No birds are mammals. Some mammals can fly. Could any animal be both a hummingbird and a flying mammal? Answer yes or no and justify your answer using formal logical reasoning.",
+    "correct_answer": "No. Hummingbirds are birds, and no bird is a mammal, so a hummingbird cannot be a mammal, flying or not.",
+    "difficulty": "hard",
+    "problem_type": "formal_logic"
+  },
+  {
+    "ID": 8,
+    "problem": "Suppose Anne caught a train that departed 3 minutes earlier than scheduled and therefore arrived in Paris at 09:27 a.m., letting her close a business deal that otherwise would have gone to a rival. If the train had departed on time, outline a plausible chain of events (at least three steps) showing how the deal could have changed hands.",
+    "correct_answer": "1. Train departs on time and arrives at 09:30. 2. Anne misses the 09:28 meeting with the client. 3. The rival, who was already there, secures the deal in her absence.",
+    "difficulty": "hard",
+    "problem_type": "causal_reasoning"
+  },
+  {
+    "ID": 9,
+    "problem": "Picture a 3 × 3 grid labeled like a phone keypad (1-9). A chess knight starts on square 5. It makes exactly three legal knight moves, never leaving the grid and never landing on the same square twice. Question: List every possible square it could finish on and give the path(s) that reach each one.",
+    "correct_answer": "Possible final squares: 1, 3, 7, 9. Multiple paths exist to each based on legal knight moves (e.g., 5→1→6→3).",
+    "difficulty": "very_hard",
+    "problem_type": "spatial_reasoning"
+  },
+  {
+    "ID": 10,
+    "problem": "You need to visit four clients—A, B, C, and D—today. Constraints: * You must meet C before A. * B and D are on opposite sides of town; traveling directly between them adds 45 minutes. * You have confirmed time slots: B (10 a.m.), D (2 p.m.). * Every meeting lasts exactly 30 minutes; travel between any other pair of clients takes 15 minutes. Task: Propose a feasible schedule (times + travel legs) that meets all constraints and minimizes total idle time. Explain why your sequence is optimal or close to it.",
+    "correct_answer": "8:30–9:00 C, 9:15–9:45 A, 10:00–10:30 B, [lunch/idle], 2:00–2:30 D. This satisfies all constraints and minimizes idle time between meetings.",
+    "difficulty": "very_hard",
+    "problem_type": "optimization_and_planning"
+  }
+]

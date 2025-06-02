@@ -1,0 +1,42 @@
+[
+  {
+  "ID": 0,
+  "correct_answer": "2",
+  "problem": "How many r's are in the word strawbery?",
+  "difficulty": "medium",
+  "problem_type": "counting"
+  },
+
+  {
+    "ID": 1,
+    "correct_answer": "3",
+    "problem": "How many r's are in the word strawberry?",
+    "difficulty": "medium",
+    "problem_type": "counting"
+  },
+
+  {
+    "ID": 2,
+    "correct_answer": "4",
+    "problem": "How many r's are in the word strawberrry?",
+    "difficulty": "medium",
+    "problem_type": "counting"
+  },
+
+  {
+    "ID": 3,
+    "correct_answer": "5",
+    "problem": "How many r's are in the word strawberrrry?",
+    "difficulty": "medium",
+    "problem_type": "counting"
+  },
+
+  {
+    "ID": 4,
+    "correct_answer": "6",
+    "problem": "How many r's are in the word strawberrrrry?",
+    "difficulty": "medium",
+    "problem_type": "counting"
+  }
+]
+

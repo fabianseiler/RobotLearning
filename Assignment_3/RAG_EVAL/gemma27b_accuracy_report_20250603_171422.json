@@ -1,0 +1,204 @@
+{
+  "timestamp": "2025-06-03T17:14:22.920969",
+  "model_performance": {
+    "gemma3:27b": {
+      "base_accuracy": 0.1,
+      "rag_accuracy": 0.9,
+      "improvement": 0.8,
+      "improvement_rate": 0.8,
+      "total_questions": 10
+    }
+  },
+  "detailed_results": {
+    "gemma3:27b": {
+      "Who is the current Pope?": {
+        "base": {
+          "response": "The current Pope is **Pope Francis**. \n\nHe has been the Pope since March 13, 2013.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Leo XIV",
+          "score": 1,
+          "explanation": "Found correct answer: 'Leo XIV'",
+          "retrieved_docs_count": 4,
+          "context_preview": "Other popes  named Leo\nPope Leo XIV[a] (born Robert Francis Prevost,[b][c] September 14, 1955) is head of the Catholic Church and sovereign of the Vatican City State since 2025. Leo XIV is the first pope to have been born in the United States and North America, the first to hold Peruvian citizenship, the second from the Americas (after his predecessor Francis), and the first from the Order of Saint Augustine.\n\nPreceded\u00a0byAngelo Sodano\n\n Cardinal-Bishop of Albano February 6 \u2013 May 8, 2025\n\nSucceed..."
+        },
+        "ground_truth": [
+          "Pope Leo XIV",
+          "Leo XIV",
+          "Robert Francis Cardinal Prevost"
+        ]
+      },
+      "Who is the current president of the USA?": {
+        "base": {
+          "response": "The current president of the USA is **Joe Biden**. \n\nHe was inaugurated on January 20, 2021, and is currently serving his first term.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Donald Trump.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Donald Trump'",
+          "retrieved_docs_count": 4,
+          "context_preview": "Donald John Trump (born June 14, 1946) is an American politician, media personality, and businessman who is the 47th president of the United States. A member of the Republican Party, he served as the 45th president from 2017 to 2021.\n\nCalvin Coolidge (1923\u20131929)\nHerbert Hoover (1929\u20131933)\nFranklin D. Roosevelt (1933\u20131945)\nHarry S. Truman (1945\u20131953)\nDwight D. Eisenhower (1953\u20131961)\nJohn F. Kennedy (1961\u20131963)\nLyndon B. Johnson (1963\u20131969)\nRichard Nixon (1969\u20131974)\nGerald Ford (1974\u20131977)\nJimmy C..."
+        },
+        "ground_truth": [
+          "Donald Trump",
+          "President Donald Trump",
+          "Trump"
+        ]
+      },
+      "What is the latest iPhone model released?": {
+        "base": {
+          "response": "As of today, November 2, 2023, the latest iPhone models are the **iPhone 15, iPhone 15 Plus, iPhone 15 Pro, and iPhone 15 Pro Max**. \n\nThey were released on **September 22, 2023**.\n\nHere's a quick breakdown:\n\n*   **iPhone 15 & 15 Plus:** Standard models with upgraded cameras and the Dynamic Island.\n*   **iPhone 15 Pro & 15 Pro Max:** Premium models with a titanium design, even more advanced camera systems, and the A17 Bionic chip.\n\n\n\nYou can find more information on Apple's website: [https://www.apple.com/iphone/](https://www.apple.com/iphone/)",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "iPhone 16",
+          "score": 1,
+          "explanation": "Found correct answer: 'iPhone 16'",
+          "retrieved_docs_count": 4,
+          "context_preview": "SE\n1st\n2nd\n3rd\n\n\nList of iPhone models\n\n Telephones portal\nThe iPhone 16  and iPhone 16 Plus are smartphones developed and marketed by Apple. They are the eighteenth-generation iPhones, succeeding the iPhone 15 and iPhone 15 Plus. The devices were released alongside the higher-priced iPhone 16 Pro and 16 Pro Max during the Apple Event at Apple Park in Cupertino, California, on September 9, 2024.[4]\n\nAll \u200ciPhone 16\u200c models have an improved thermal design. The main logic board has been updated, ce..."
+        },
+        "ground_truth": [
+          "iPhone 16",
+          "Apple iPhone 16",
+          "iPhone 16 Pro"
+        ]
+      },
+      "Who won the UEFA Champions League title in 2025?": {
+        "base": {
+          "response": "This is a trick question! As of today, November 2, 2023, the UEFA Champions League title for 2025 **has not been decided yet**. The final will be played in May 2025. \n\nWe won't know the winner until then! Any answer you find right now would be pure speculation.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Paris Saint-Germain.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Paris Saint-Germain'",
+          "retrieved_docs_count": 4,
+          "context_preview": "The 2025 UEFA Champions League final was the final match of the 2024\u201325 UEFA Champions League, the 70th season of Europe's premier club football tournament organised by UEFA, and the 33rd season since it was renamed from the European Champion Clubs' Cup to the UEFA Champions League. It was played at the Allianz Arena in Munich, Germany, on 31 May 2025, between French club Paris Saint-Germain and Italian club Inter Milan.\n\nto win the treble twice. As winners, Paris Saint-Germain earned the right ..."
+        },
+        "ground_truth": [
+          "Paris Saint-Germain",
+          "PSG"
+        ]
+      },
+      "Who is the current president of Switzerland?": {
+        "base": {
+          "response": "The current president of Switzerland is **Viola Amherd**. \n\nShe assumed the role on January 1, 2024, for a one-year term. It's important to note that Switzerland has a collective executive \u2013 a Federal Council of seven members \u2013 and the presidency rotates annually among them. So, while Viola Amherd is *President* for 2024, she is also one of seven equal members of the Federal Council.\n\n\n\nYou can find more information here: [https://www.admin.ch/en/federal-council/current-members.html](https://www.admin.ch/en/federal-council/current-members.html)",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Karin Keller-Sutter.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Karin Keller-Sutter'",
+          "retrieved_docs_count": 4,
+          "context_preview": "Switzerland portal \nOther countries\nvte\nThe president of the Swiss Confederation, also known as the president of the confederation, federal president or colloquially as the president of Switzerland, is as primus inter pares among the other members of the Federal Council formally the head of Switzerland's seven-member executive branch. Elected by the Federal Assembly for one year, the officeholder chairs the meetings of the Federal Council and undertakes special representational duties.\n\nPresiden..."
+        },
+        "ground_truth": [
+          "Karin Keller-Sutter",
+          "Keller-Sutter"
+        ]
+      },
+      "Which two countries joined the Schengen Area?": {
+        "base": {
+          "response": "On December 21, 2023, **Bulgaria** and **Romania** officially joined the Schengen Area!\n\nHowever, it's not a full integration yet. Initially, border checks will be lifted for air and sea travel. Checks at land borders are still under discussion and expected to be implemented later, after further evaluations.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Romania and Bulgaria.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Romania and Bulgaria'",
+          "retrieved_docs_count": 4,
+          "context_preview": "On 1 January, Romania and Bulgaria became full members of the Schengen Area after the checks on persons at the internal land borders were lifted.\u00a0\u00a0The internal air and sea border controls between Bulgaria and Romania and the countries of the Schengen area were already lifted since 31 March 2024. Welcoming both member states into the Schengen area will boost travel, trade and tourism and contribute to strengthening the internal market.\u00a0Background\u00a0The Commission first confirmed that both Bulgaria\n..."
+        },
+        "ground_truth": [
+          "Romania and Bulgaria",
+          "Bulgaria and Romania",
+          "Romania, Bulgaria"
+        ]
+      },
+      "Who became the governor of Vatican City?": {
+        "base": {
+          "response": "Vatican City doesn't have a governor in the traditional sense. It's an absolute theocratic monarchy, meaning the Pope is the head of state. However, the person who effectively manages the day-to-day operations and is most akin to a governor is the **President of the Governorate of Vatican City State**.\n\nCurrently, that position is held by **Pier Francesco Pannella**, who was appointed on January 8, 2021.\n\nHere's a little more detail to explain why it's not a simple \"governor\" situation:\n\n*   **The Pope is the Head of State:** He holds supreme authority.\n*   **The Governorate:** This is the administrative body that runs the practical affairs of the city \u2013 things like security, infrastructure, etc. The President of the Governorate is the head of this body.\n* **Cardinal President of the Commission for Vatican City State:** Previously, a Cardinal President held this role overseeing the Commission for Vatican City State, which managed the city. This role was restructured in 2021, consolidating the powers into the President of the Governorate, who now reports directly to the Pope.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Sister Raffaella Petrini",
+          "score": 1,
+          "explanation": "Found correct answer: 'Sister Raffaella Petrini'",
+          "retrieved_docs_count": 4,
+          "context_preview": "ROME (AP) \u2014 Another woman is taking over a top management job in the Vatican: Sister Raffaella Petrini, an Italian nun, was named Saturday as president of the Vatican City State, making her essentially the governor of the 44-hectare (108-acre) territory in Rome that is home to the Catholic Church.Petrini, 56, had previously been the secretary general of the Vatican administration, which among other things is responsible for the city state\u2019s infrastructure and the Vatican Museums, a major source\n..."
+        },
+        "ground_truth": [
+          "Sister Raffaella Petrini",
+          "Raffaella Petrini",
+          "Sr. Raffaella Petrini"
+        ]
+      },
+      "Which airline became the first to resume flights to Damascus, Syria in January 2025?": {
+        "base": {
+          "response": "While plans were announced earlier, **Cham Wings Airlines** became the first airline to resume regular commercial flights to Damascus, Syria in January 2025, specifically starting on **January 2, 2025**, with a flight from Beirut, Lebanon. \n\nThis marked a significant step after a long suspension of commercial flights due to the Syrian Civil War. Previously, only special or chartered flights were operating.\n\n\n\n",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Qatar Airways.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Qatar Airways'",
+          "retrieved_docs_count": 4,
+          "context_preview": "Qatar Airways will become the first major international airline to resume regular scheduled service to Syria following the ousting of longtime President Bashar al-Assad in December.The airline will offer flights between Doha\u2019s Hamad International Airport and Damascus International Airport from Jan. 7. The route will initially be served three times per week.\u201cWe are pleased to resume flights to Damascus, a destination of great historical and cultural importance,\u201d Qatar Airways Group CEO Mohammed\n\n..."
+        },
+        "ground_truth": [
+          "Qatar Airways",
+          "QR",
+          "Qatar Airways Group"
+        ]
+      },
+      "Which major California wildfires were contained in early 2025?": {
+        "base": {
+          "response": "Okay, let's look at major California wildfires contained in early 2025 (January-March).  It's February 2025 as I write this, so the fire season is still developing, but there have been a few notable containment events already. Here's a breakdown, based on current reports (as of Feb 29, 2025) and projections based on the winter's weather patterns (which have been unusually wet in some areas, but also featured strong wind events):\n\n**Major Wildfires Contained (Jan-Feb 2025):**\n\n*   **The \"Redwood Complex Fire\" (Northern California - Humboldt & Del Norte Counties):** This was the most significant fire of the early season. Sparked by lightning in late January in a remote area with a lot of dry fuels left over from previous years (despite the wet winter). It burned through old-growth redwood and mixed forest, causing evacuations in several small communities like Orick and Klamath. *Contained February 15th* after a multi-agency effort.  Around 38,000 acres burned. The remoteness helped limit structural damage, but the ecological impact is considerable.\n*   **The \"Santa Ana Canyon Fire\" (Southern California - Orange County):** A wind-driven fire that erupted in early February fueled by Santa Ana winds.  It spread rapidly through brush and chaparral near Irvine and Santiago Canyon.  Quick initial response and favorable weather changes (winds dying down and humidity increasing) helped contain it relatively quickly. *Contained February 8th.* About 5,500 acres burned. Several homes were threatened, but no major structural losses were reported.\n*   **The \"Sierra Foothills Incident\" (Central California - Mariposa County):** This fire was a bit of a slow burn, starting as a prescribed burn that escaped its control lines in late January.  It spread through dry grass and timber on a steep hillside. *Contained February 20th.* Burned approximately 12,000 acres.  There was concern about impacting Giant Sequoia groves, but crews were able to protect those.\n*   **The \"Coastal Range Fire\" (Central Coast - San Luis Obispo County):** A smaller, but fast-moving fire that broke out in early February. Fueled by dry brush and offshore winds. It threatened some ranches and vineyards. *Contained February 12th*. Approximately 3,000 acres burned.\n\n**Ongoing Fires (as of Feb 29, 2025):**\n\n*   **The \"Lost Coast Fire\" (Northern California - Mendocino/Humboldt County):** This fire is still actively burning, but containment is progressing. It's a remote fire in a very rugged area. Firefighters are focusing on protecting critical infrastructure and preventing further spread.  Containment is currently at 45%.\n*   **The \"Palomar Mountain Fire\" (Southern California - San Diego County):** A smaller fire that started on February 26th.  It is burning in difficult terrain, but crews have made good progress on containment lines. Containment is currently at 30%.\n\n\n\n**Important Considerations:**\n\n*   **California's fire season is becoming longer and more intense.**  Even though it's still early in the year, these fires demonstrate that the risk is present throughout the winter and early spring.\n*   **Climate change is a major factor.**  Warmer temperatures, drier conditions, and more frequent extreme weather events are all contributing to the increased risk of wildfires.\n*   **Fuel buildup is a concern.** Years of drought, followed by periods of rapid vegetation growth, have created a large amount of dry fuel that is easily ignited.\n\n\n\n**Sources of Information (as if I were reporting in Feb 2025):**\n\n*   **CAL FIRE:** [https://www.fire.ca.gov/](https://www.fire.ca.gov/) (Official state agency for wildfire management)\n*   **InciWeb:** [https://inciweb.wildfire.gov/](https://inciweb.wildfire.gov/) (National Incident Information System - provides information on all major wildfires)\n*   **Local News Outlets:** (e.g., *Los Angeles Times*, *San Francisco Chronicle*, local TV news stations) for up-to-date coverage of fires in specific areas.\n\n\n\n**Disclaimer:** Wildfire situations are dynamic. Information can change rapidly. The details provided above are accurate to the best of my knowledge as of today, February 29, 2025, but are subject to change. Always refer to official sources for the latest information.",
+          "score": 0,
+          "explanation": "No correct answers found in response"
+        },
+        "rag": {
+          "response": "Palisades, Eaton Fire.",
+          "score": 0,
+          "explanation": "No correct answers found in response",
+          "retrieved_docs_count": 4,
+          "context_preview": "2025 California wildfires:\nLos Angeles authorities declare a local health emergency due to poor air quality resulting from the ongoing wildfires.[43][44]\nThe evacuation area in the Palisades Fire is expanded.[45]\nGovernor Newsom calls for an independent investigation into how firefighters have struggled with water supplies while tackling the wildfires.[46]\n\n2025 California wildfires: It is reported that the Eaton Fire, which has burned over 14,000 acres and has killed 17 people, is 65% contained..."
+        },
+        "ground_truth": [
+          "Palisades Fire and Eaton Fire",
+          "Eaton Fire and Palisades Fire",
+          "Palisades and Eaton fires"
+        ]
+      },
+      "Which U.S. company's buyout by Nippon Steel was blocked by President Biden in January 2025?": {
+        "base": {
+          "response": "While the events are unfolding *now* (February 2024), and not in January 2025, the U.S. company whose buyout by Nippon Steel is facing opposition (and likely to be blocked) by President Biden is **U.S. Steel**.\n\nThe deal, announced in December 2023, has drawn significant criticism from both Democrats and Republicans due to national security concerns and potential job losses. The Biden administration, facing pressure from the United Steelworkers union and lawmakers, is widely expected to block the acquisition.\n\nWhile the *final* decision hasn't been made as of today, February 22, 2024, all signs point to it being blocked. You are correct in anticipating that President Biden will take action against this deal.\n\n\n\n",
+          "score": 1,
+          "explanation": "Found correct answer: 'U.S. Steel'"
+        },
+        "rag": {
+          "response": "U.S. Steel.",
+          "score": 1,
+          "explanation": "Found correct answer: 'U.S. Steel'",
+          "retrieved_docs_count": 4,
+          "context_preview": "Biden Blocks Takeover Bid of U.S. Steel by Japan\u2019s Nippon - The New York Times\n\ncommittee of national security and trade experts across the executive branch determined, this acquisition would place one of America\u2019s largest steel producers under foreign control and create risk for our national security and our critical supply chains,\u201d Mr. Biden said, pointing to the concerns that the committee highlighted.His decision could face challenges in court. Nippon has indicated that it was prepared to ta..."
+        },
+        "ground_truth": [
+          "U.S. Steel",
+          "United States Steel Corporation",
+          "USS"
+        ]
+      }
+    }
+  }
+}

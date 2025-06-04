@@ -6,7 +6,9 @@
 
 **my_scripts_rl** contains the main task and execution script of Assignment 1 and Assignment2. Additional information for the execution is given in Assignment1.md and Assignment2.md, where the process is explained in more detail.
 
-**Perception_Results** contains the trained weights with and without augmentation that were used for the object detection task
+**Perception_Results** contains the trained weights with and without augmentation that were used for the object detection task.
+
+**Assignment_3** holds all files related to the third assignment on reasoning with Large Language Models.
 
 The video file  **Example_pick_and_place.mp4** shows an example we recorded with a camera to showcase the functionallity of a completed motion consisting of four partial tasks.
 

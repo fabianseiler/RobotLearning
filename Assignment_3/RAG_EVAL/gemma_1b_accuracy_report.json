@@ -1,28 +1,63 @@
 {
-  "timestamp": "2025-06-03T16:15:03.074675",
+  "timestamp": "2025-06-04T12:48:11.846026",
   "model_performance": {
     "gemma3:1b": {
-      "base_accuracy": 0.1,
-      "rag_accuracy": 0.8,
-      "improvement": 0.7000000000000001,
-      "improvement_rate": 0.8,
-      "total_questions": 10
+      "base_accuracy": 0.0,
+      "rag_accuracy": 0.9,
+      "improvement": 0.9,
+      "improvement_rate": 0.9,
+      "base_avg_confidence": 0.7,
+      "rag_avg_confidence": 0.89,
+      "confidence_change": 0.19000000000000006,
+      "total_questions": 10,
+      "individual_confidences": {
+        "base": [
+          0.95,
+          0.95,
+          0.95,
+          0.2,
+          0.95,
+          0.95,
+          0.95,
+          0.7,
+          0.2,
+          0.2
+        ],
+        "rag": [
+          0.95,
+          0.95,
+          1.0,
+          0.95,
+          1.0,
+          1.0,
+          0.95,
+          0.95,
+          0.95,
+          0.2
+        ]
+      }
     }
   },
   "detailed_results": {
     "gemma3:1b": {
       "Who is the current Pope?": {
         "base": {
-          "response": "As of today, November 2, 2023, the current Pope is **Pope Francis**.\n\nHe was elected in March 2013 and is the youngest Pope in history.\n\nYou can always find the most up-to-date information on his official website: [https://www.vatican.va/en/](https://www.vatican.va/en/)",
+          "response": "Pope Francis",
+          "confidence": 0.95,
+          "reasoning": "Pope Francis is the current leader of the Catholic Church.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"Pope Francis\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"Pope Francis is the current leader of the Catholic Church.\"\n}"
         },
         "rag": {
-          "response": "Pope Leo XIV.",
+          "response": "Pope Leo XIV",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states \u2018Pope Leo XIV is the head of the Catholic Church and sovereign of the Vatican City State since 2025.\u2019",
           "score": 1,
           "explanation": "Found correct answer: 'Pope Leo XIV'",
           "retrieved_docs_count": 4,
-          "context_preview": "Other popes  named Leo\nPope Leo XIV[a] (born Robert Francis Prevost,[b][c] September 14, 1955) is head of the Catholic Church and sovereign of the Vatican City State since 2025. Leo XIV is the first pope to have been born in the United States and North America, the first to hold Peruvian citizenship, the second from the Americas (after his predecessor Francis), and the first from the Order of Saint Augustine.\n\nPreceded\u00a0byAngelo Sodano\n\n Cardinal-Bishop of Albano February 6 \u2013 May 8, 2025\n\nSucceed..."
+          "context_preview": "Other popes  named Leo\nPope Leo XIV[a] (born Robert Francis Prevost,[b][c] September 14, 1955) is head of the Catholic Church and sovereign of the Vatican City State since 2025. Leo XIV is the first pope to have been born in the United States and North America, the first to hold Peruvian citizenship, the second from the Americas (after his predecessor Francis), and the first from the Order of Saint Augustine.\n\nPreceded\u00a0byAngelo Sodano\n\n Cardinal-Bishop of Albano February 6 \u2013 May 8, 2025\n\nSucceed...",
+          "raw_response": "{\n    \"answer\": \"Pope Leo XIV\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states \u2018Pope Leo XIV is the head of the Catholic Church and sovereign of the Vatican City State since 2025.\u2019\"\n}"
         },
         "ground_truth": [
           "Pope Leo XIV",
@@ -32,16 +67,22 @@
       },
       "Who is the current president of the USA?": {
         "base": {
-          "response": "As of today, November 2, 2023, the President of the USA is Joe Biden.",
+          "response": "Joe Biden",
+          "confidence": 0.95,
+          "reasoning": "Based on current publicly available information, Joe Biden is the current president of the USA.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"Joe Biden\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"Based on current publicly available information, Joe Biden is the current president of the USA.\"\n}"
         },
         "rag": {
-          "response": "Donald Trump\n",
+          "response": "Donald Trump",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states \"Donald Trump (2025\u2013present)\" and \"Donald Trump (R-Florida) (since January 20)\".",
           "score": 1,
           "explanation": "Found correct answer: 'Donald Trump'",
           "retrieved_docs_count": 4,
-          "context_preview": "Donald John Trump (born June 14, 1946) is an American politician, media personality, and businessman who is the 47th president of the United States. A member of the Republican Party, he served as the 45th president from 2017 to 2021.\n\nCalvin Coolidge (1923\u20131929)\nHerbert Hoover (1929\u20131933)\nFranklin D. Roosevelt (1933\u20131945)\nHarry S. Truman (1945\u20131953)\nDwight D. Eisenhower (1953\u20131961)\nJohn F. Kennedy (1961\u20131963)\nLyndon B. Johnson (1963\u20131969)\nRichard Nixon (1969\u20131974)\nGerald Ford (1974\u20131977)\nJimmy C..."
+          "context_preview": "Donald John Trump (born June 14, 1946) is an American politician, media personality, and businessman who is the 47th president of the United States. A member of the Republican Party, he served as the 45th president from 2017 to 2021.\n\nCalvin Coolidge (1923\u20131929)\nHerbert Hoover (1929\u20131933)\nFranklin D. Roosevelt (1933\u20131945)\nHarry S. Truman (1945\u20131953)\nDwight D. Eisenhower (1953\u20131961)\nJohn F. Kennedy (1961\u20131963)\nLyndon B. Johnson (1963\u20131969)\nRichard Nixon (1969\u20131974)\nGerald Ford (1974\u20131977)\nJimmy C...",
+          "raw_response": "{\n    \"answer\": \"Donald Trump\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states \\\"Donald Trump (2025\u2013present)\\\" and \\\"Donald Trump (R-Florida) (since January 20)\\\".\"\n}"
         },
         "ground_truth": [
           "Donald Trump",
@@ -51,16 +92,22 @@
       },
       "What is the latest iPhone model released?": {
         "base": {
-          "response": "As of today, November 2, 2023, the latest iPhone model released is the **iPhone 15 series**, which includes:\n\n*   **iPhone 15**\n*   **iPhone 15 Plus**\n*   **iPhone 15 Pro**\n*   **iPhone 15 Pro Max**\n\nYou can find the most up-to-date information on Apple's official website: [https://www.apple.com/iphone-15/](https://www.apple.com/iphone-15/)",
+          "response": "iPhone 15 Pro Max",
+          "confidence": 0.95,
+          "reasoning": "The latest iPhone model is the iPhone 15 Pro Max, released in September 2023.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"iPhone 15 Pro Max\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The latest iPhone model is the iPhone 15 Pro Max, released in September 2023.\"\n}"
         },
         "rag": {
-          "response": "iPhone 16 Plus",
+          "response": "iPhone 16",
+          "confidence": 1.0,
+          "reasoning": "The context explicitly states \u2018and iPhone 16 are the eighteenth-generation iPhones, succeeding the iPhone 15 and iPhone 15 Plus.\u2019",
           "score": 1,
           "explanation": "Found correct answer: 'iPhone 16'",
           "retrieved_docs_count": 4,
-          "context_preview": "SE\n1st\n2nd\n3rd\n\n\nList of iPhone models\n\n Telephones portal\nThe iPhone 16  and iPhone 16 Plus are smartphones developed and marketed by Apple. They are the eighteenth-generation iPhones, succeeding the iPhone 15 and iPhone 15 Plus. The devices were released alongside the higher-priced iPhone 16 Pro and 16 Pro Max during the Apple Event at Apple Park in Cupertino, California, on September 9, 2024.[4]\n\nAll \u200ciPhone 16\u200c models have an improved thermal design. The main logic board has been updated, ce..."
+          "context_preview": "SE\n1st\n2nd\n3rd\n\n\nList of iPhone models\n\n Telephones portal\nThe iPhone 16  and iPhone 16 Plus are smartphones developed and marketed by Apple. They are the eighteenth-generation iPhones, succeeding the iPhone 15 and iPhone 15 Plus. The devices were released alongside the higher-priced iPhone 16 Pro and 16 Pro Max during the Apple Event at Apple Park in Cupertino, California, on September 9, 2024.[4]\n\nAll \u200ciPhone 16\u200c models have an improved thermal design. The main logic board has been updated, ce...",
+          "raw_response": "{\n    \"answer\": \"iPhone 16\",\n    \"confidence\": 1.0,\n    \"reasoning\": \"The context explicitly states \u2018and iPhone 16 are the eighteenth-generation iPhones, succeeding the iPhone 15 and iPhone 15 Plus.\u2019\"\n}"
         },
         "ground_truth": [
           "iPhone 16",
@@ -70,16 +117,22 @@
       },
       "Who won the UEFA Champions League title in 2025?": {
         "base": {
-          "response": "As of today, November 2nd, 2025, **Manchester City** has won the UEFA Champions League. They defeated Real Madrid in the final. \n\nIt\u2019s a very exciting time for football, and it\u2019s a fantastic story to watch! \n\nYou can check the official UEFA Champions League website for the full results and details: [https://www.uefa.com/eu-ch/](https://www.uefa.com/eu-ch/)",
+          "response": "I don't know",
+          "confidence": 0.2,
+          "reasoning": "UEFA Champions League results are public information, but I don\u2019t have access to real-time updates.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"I don't know\",\n    \"confidence\": 0.2,\n    \"reasoning\": \"UEFA Champions League results are public information, but I don\u2019t have access to real-time updates.\"\n}"
         },
         "rag": {
-          "response": "Paris Saint-Germain.\n",
+          "response": "Paris Saint-Germain",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states that Paris Saint-Germain won the 2025 UEFA Champions League title.",
           "score": 1,
           "explanation": "Found correct answer: 'Paris Saint-Germain'",
           "retrieved_docs_count": 4,
-          "context_preview": "The 2025 UEFA Champions League final was the final match of the 2024\u201325 UEFA Champions League, the 70th season of Europe's premier club football tournament organised by UEFA, and the 33rd season since it was renamed from the European Champion Clubs' Cup to the UEFA Champions League. It was played at the Allianz Arena in Munich, Germany, on 31 May 2025, between French club Paris Saint-Germain and Italian club Inter Milan.\n\nSee also\n2025 UEFA Europa League final\n2025 UEFA Conference League final\n2..."
+          "context_preview": "The 2025 UEFA Champions League final was the final match of the 2024\u201325 UEFA Champions League, the 70th season of Europe's premier club football tournament organised by UEFA, and the 33rd season since it was renamed from the European Champion Clubs' Cup to the UEFA Champions League. It was played at the Allianz Arena in Munich, Germany, on 31 May 2025, between French club Paris Saint-Germain and Italian club Inter Milan.\n\nto win the treble twice. As winners, Paris Saint-Germain earned the right ...",
+          "raw_response": "{\n    \"answer\": \"Paris Saint-Germain\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states that Paris Saint-Germain won the 2025 UEFA Champions League title.\"\n}"
         },
         "ground_truth": [
           "Paris Saint-Germain",
@@ -88,16 +141,22 @@
       },
       "Who is the current president of Switzerland?": {
         "base": {
-          "response": "As of today, November 2, 2023, the current president of Switzerland is **Lisa Hugenschuh**. \n\nShe was elected in May 2023.",
+          "response": "Federal Council",
+          "confidence": 0.95,
+          "reasoning": "Swiss presidency is a regular process.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n  \"answer\": \"Federal Council\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"Swiss presidency is a regular process.\"\n}"
         },
         "rag": {
-          "response": "Karin Keller-Sutter.\n",
+          "response": "Karin Keller-Suttersince 2025",
+          "confidence": 1.0,
+          "reasoning": "The context explicitly states \"The current president is Karin Keller-Sutter, since 1 January 2025.\" \u201d",
           "score": 1,
           "explanation": "Found correct answer: 'Karin Keller-Sutter'",
           "retrieved_docs_count": 4,
-          "context_preview": "Switzerland portal \nOther countries\nvte\nThe president of the Swiss Confederation, also known as the president of the confederation, federal president or colloquially as the president of Switzerland, is as primus inter pares among the other members of the Federal Council formally the head of Switzerland's seven-member executive branch. Elected by the Federal Assembly for one year, the officeholder chairs the meetings of the Federal Council and undertakes special representational duties.\n\nPresiden..."
+          "context_preview": "Switzerland portal \nOther countries\nvte\nThe president of the Swiss Confederation, also known as the president of the confederation, federal president or colloquially as the president of Switzerland, is as primus inter pares among the other members of the Federal Council formally the head of Switzerland's seven-member executive branch. Elected by the Federal Assembly for one year, the officeholder chairs the meetings of the Federal Council and undertakes special representational duties.\n\nPresiden...",
+          "raw_response": "{\n    \"answer\": \"Karin Keller-Suttersince 2025\",\n    \"confidence\": 1.0,\n    \"reasoning\": \"The context explicitly states \\\"The current president is Karin Keller-Sutter, since 1 January 2025.\\\" \u201d\"\n}"
         },
         "ground_truth": [
           "Karin Keller-Sutter",
@@ -106,16 +165,22 @@
       },
       "Which two countries joined the Schengen Area?": {
         "base": {
-          "response": "The two countries that joined the Schengen Area are **France** and **Germany**. \n\nThey joined on January 1, 1983.",
+          "response": "France & Germany",
+          "confidence": 0.95,
+          "reasoning": "The Schengen Area is comprised of France and Germany. While I don\u2019t know if other countries were involved, this is the most common and straightforward answer.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n  \"answer\": \"France & Germany\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The Schengen Area is comprised of France and Germany. While I don\u2019t know if other countries were involved, this is the most common and straightforward answer.\"\n}"
         },
         "rag": {
-          "response": "Bulgaria and Romania.",
+          "response": "Bulgaria and Romania",
+          "confidence": 1.0,
+          "reasoning": "The context explicitly states that Bulgaria and Romania joined the Schengen Area.",
           "score": 1,
           "explanation": "Found correct answer: 'Bulgaria and Romania'",
           "retrieved_docs_count": 4,
-          "context_preview": "On 1 January, Romania and Bulgaria became full members of the Schengen Area after the checks on persons at the internal land borders were lifted.\u00a0\u00a0The internal air and sea border controls between Bulgaria and Romania and the countries of the Schengen area were already lifted since 31 March 2024. Welcoming both member states into the Schengen area will boost travel, trade and tourism and contribute to strengthening the internal market.\u00a0Background\u00a0The Commission first confirmed that both Bulgaria\n..."
+          "context_preview": "On 1 January, Romania and Bulgaria became full members of the Schengen Area after the checks on persons at the internal land borders were lifted.\u00a0\u00a0The internal air and sea border controls between Bulgaria and Romania and the countries of the Schengen area were already lifted since 31 March 2024. Welcoming both member states into the Schengen area will boost travel, trade and tourism and contribute to strengthening the internal market.\u00a0Background\u00a0The Commission first confirmed that both Bulgaria\n...",
+          "raw_response": "{\n    \"answer\": \"Bulgaria and Romania\",\n    \"confidence\": 1.0,\n    \"reasoning\": \"The context explicitly states that Bulgaria and Romania joined the Schengen Area.\"\n}"
         },
         "ground_truth": [
           "Romania and Bulgaria",
@@ -125,16 +190,22 @@
       },
       "Who became the governor of Vatican City?": {
         "base": {
-          "response": "As of today, November 2, 2023, the Governor of Vatican City is **Cardinal Pietro Cardinals Toschi**.\n\nHe was appointed in December 2022.",
+          "response": "Pope Francis",
+          "confidence": 0.95,
+          "reasoning": "Pope Francis is the current governor of Vatican City.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"Pope Francis\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"Pope Francis is the current governor of Vatican City.\"\n}"
         },
         "rag": {
-          "response": "Sister Raffaella Petrini.",
+          "response": "Sister Raffaella Petrini",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states that Sister Raffaella Petrini was named president of the Vatican City State.",
           "score": 1,
           "explanation": "Found correct answer: 'Sister Raffaella Petrini'",
           "retrieved_docs_count": 4,
-          "context_preview": "ROME (AP) \u2014 Another woman is taking over a top management job in the Vatican: Sister Raffaella Petrini, an Italian nun, was named Saturday as president of the Vatican City State, making her essentially the governor of the 44-hectare (108-acre) territory in Rome that is home to the Catholic Church.Petrini, 56, had previously been the secretary general of the Vatican administration, which among other things is responsible for the city state\u2019s infrastructure and the Vatican Museums, a major source\n..."
+          "context_preview": "ROME (AP) \u2014 Another woman is taking over a top management job in the Vatican: Sister Raffaella Petrini, an Italian nun, was named Saturday as president of the Vatican City State, making her essentially the governor of the 44-hectare (108-acre) territory in Rome that is home to the Catholic Church.Petrini, 56, had previously been the secretary general of the Vatican administration, which among other things is responsible for the city state\u2019s infrastructure and the Vatican Museums, a major source\n...",
+          "raw_response": "{\n    \"answer\": \"Sister Raffaella Petrini\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states that Sister Raffaella Petrini was named president of the Vatican City State.\"\n}"
         },
         "ground_truth": [
           "Sister Raffaella Petrini",
@@ -144,16 +215,22 @@
       },
       "Which airline became the first to resume flights to Damascus, Syria in January 2025?": {
         "base": {
-          "response": "As of today, November 2nd, 2024, **Turkish Airlines** was the first airline to resume flights to Damascus, Syria, in January 2025.\n\nHowever, this is a somewhat fluid situation as routes and schedules can change. \n\n**Important Note:** Due to the ongoing political situation in Syria, resuming flights is complex and subject to change based on security concerns and regulations. \n\nYou can find the most up-to-date information here: [https://www.turkishairlines.com/en/](https://www.turkishairlines.com/en/)",
+          "response": "Air Sy, likely",
+          "confidence": 0.7,
+          "reasoning": "Information sparse. I don\u2019t have definitive confirmation.",
           "score": 0,
-          "explanation": "No correct answers found in response"
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"Air Sy, likely\",\n    \"confidence\": 0.7,\n    \"reasoning\": \"Information sparse. I don\u2019t have definitive confirmation.\"\n}"
         },
         "rag": {
-          "response": "Qatar Airways.\n",
+          "response": "Qatar Airways",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states Qatar Airways will resume flights to Syria following the ousting of Bashar al-Assad, making it the first airline to do so.",
           "score": 1,
           "explanation": "Found correct answer: 'Qatar Airways'",
           "retrieved_docs_count": 4,
-          "context_preview": "Qatar Airways will become the first major international airline to resume regular scheduled service to Syria following the ousting of longtime President Bashar al-Assad in December.The airline will offer flights between Doha\u2019s Hamad International Airport and Damascus International Airport from Jan. 7. The route will initially be served three times per week.\u201cWe are pleased to resume flights to Damascus, a destination of great historical and cultural importance,\u201d Qatar Airways Group CEO Mohammed\n\n..."
+          "context_preview": "Qatar Airways will become the first major international airline to resume regular scheduled service to Syria following the ousting of longtime President Bashar al-Assad in December.The airline will offer flights between Doha\u2019s Hamad International Airport and Damascus International Airport from Jan. 7. The route will initially be served three times per week.\u201cWe are pleased to resume flights to Damascus, a destination of great historical and cultural importance,\u201d Qatar Airways Group CEO Mohammed\n\n...",
+          "raw_response": "{\n    \"answer\": \"Qatar Airways\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states Qatar Airways will resume flights to Syria following the ousting of Bashar al-Assad, making it the first airline to do so.\"\n}"
         },
         "ground_truth": [
           "Qatar Airways",
@@ -163,16 +240,22 @@
       },
       "Which major California wildfires were contained in early 2025?": {
         "base": {
-          "response": "Okay, this is a really important and concerning question. As of today, November 2, 2024, there's a significant amount of uncertainty surrounding confirmed containment of major California wildfires in early 2025. While there have been some promising reports and early indicators, a complete and definitive assessment isn\u2019t yet available. Here\u2019s a breakdown of what we *know* and what's being discussed, based on reputable sources like the California Office of Fire Prevention and Fire Suppression (OCFPS), news reports, and official statements:\n\n**1. The \"Big One\" - The Woolley Fire (Most Likely Containment)**\n\n* **What Happened:** A massive, rapidly spreading wildfire in the Woolley Valley of Northern Fresno County, near Merced, started on August 11, 2024. It quickly became the most significant wildfire in the state, fueled by strong winds and dry conditions.  It was considered a high-risk wildfire due to its size and rapid progression.\n* **Current Status - Early 2025:**  Early reports suggest that the Woolley Fire is *largely contained*.  Fire crews are working diligently to control the fire's edges, particularly in areas with steep terrain.  Some areas are considered safe, and the risk of further rapid spread is significantly reduced.  However, the fire is still burning and poses a threat, and resources are continually being deployed.\n* **Key Point:**  The Woolley Fire is the primary focus of early containment efforts.  It\u2019s a key driver of the uncertainty.\n\n**2. Other Notable Fires & Containment Efforts (Ongoing & Increasing)**\n\n* **Caliphire Fire:**  This fire, starting in the central Sierra Nevada, was contained in early 2024 but experienced a resurgence in the months following. While the initial containment was successful, it remains a concern and is being monitored.\n* **Other Smaller Fires:** There have been several smaller, contained wildfires throughout the state, primarily in the western and southern parts of California, but some are still active and require ongoing management.\n* **The East Fork of the Stillwater Fire:**  A significant fire in the East Fork of the Stillwater Fire, further south in the Central Valley, is currently contained. It\u2019s a major success story.\n\n**Important Caveats and What We *Don't* Know:**\n\n* **\"Containment\" is Relative:**  \"Containment\" means reducing the area of actively burning fuel. It doesn't mean the fire has *completely* stopped.  There's always a risk of flare-ups, or embers that can reignite.\n* **Unpredictability:** Wildfire behavior is extremely complex and unpredictable. Weather conditions, topography, and fuel types can change rapidly.\n* **Ongoing Monitoring:**  The OFPS and other agencies are constantly monitoring the situation.  There\u2019s a high degree of vigilance.\n\n**Resources for the Latest Updates:**\n\n* **California Office of Fire Prevention and Fire Suppression (OCFPS):** [https://www.ocfps.ca.gov/](https://www.ocfps.ca.gov/) - This is the official source for California wildfire information.\n* **Associated Press (AP) and Reuters:** ([https://apnews.com/](https://apnews.com/) and [https://reuters.com/](https://reuters.com/)) -  These news organizations have been providing frequent updates.\n* **Local News Outlets:**  (e.g., *Los Angeles Times*, *San Francisco Chronicle*, etc.) \u2013 For localized updates on the Woolley Fire and other fires.\n\n**Disclaimer:** *I am an AI Chatbot and not a wildfire expert. This information is based on publicly available reports and is subject to change. Always refer to official sources for the most up-to-date information.*\n\n**To give you a more tailored response, could you tell me:**\n\n*   **Which area of California are you most interested in regarding wildfire activity?** (e.g., specific county, region?)",
-          "score": 0,
-          "explanation": "No correct answers found in response"
-        },
-        "rag": {
-          "response": "Eaton Fire, Palisades Fire.",
+          "response": "I dont know",
+          "confidence": 0.2,
+          "reasoning": "Information scarce.",
           "score": 0,
           "explanation": "No correct answers found in response",
+          "raw_response": "{\n    \"answer\": \"I dont know\",\n    \"confidence\": 0.2,\n    \"reasoning\": \"Information scarce.\"\n}"
+        },
+        "rag": {
+          "response": "The Palisades Fire and Eaton Fire",
+          "confidence": 0.95,
+          "reasoning": "The context explicitly states that the Palisades Fire and Eaton Fire were contained in early 2025.",
+          "score": 1,
+          "explanation": "Found correct answer: 'Palisades Fire and Eaton Fire'",
           "retrieved_docs_count": 4,
-          "context_preview": "2025 California wildfires:\nLos Angeles authorities declare a local health emergency due to poor air quality resulting from the ongoing wildfires.[43][44]\nThe evacuation area in the Palisades Fire is expanded.[45]\nGovernor Newsom calls for an independent investigation into how firefighters have struggled with water supplies while tackling the wildfires.[46]\n\n2025 California wildfires: It is reported that the Eaton Fire, which has burned over 14,000 acres and has killed 17 people, is 65% contained..."
+          "context_preview": "2025 California wildfires:\nLos Angeles authorities declare a local health emergency due to poor air quality resulting from the ongoing wildfires.[43][44]\nThe evacuation area in the Palisades Fire is expanded.[45]\nGovernor Newsom calls for an independent investigation into how firefighters have struggled with water supplies while tackling the wildfires.[46]\n\n2025 California wildfires: It is reported that the Eaton Fire, which has burned over 14,000 acres and has killed 17 people, is 65% contained...",
+          "raw_response": "{\n    \"answer\": \"The Palisades Fire and Eaton Fire\",\n    \"confidence\": 0.95,\n    \"reasoning\": \"The context explicitly states that the Palisades Fire and Eaton Fire were contained in early 2025.\"\n}"
         },
         "ground_truth": [
           "Palisades Fire and Eaton Fire",
@@ -182,16 +265,22 @@
       },
       "Which U.S. company's buyout by Nippon Steel was blocked by President Biden in January 2025?": {
         "base": {
-          "response": "This is a complex and rapidly evolving situation. As of today, November 2, 2023, **no U.S. company's buyout by Nippon Steel is definitively blocked by President Biden in January 2025.**\n\nHere's a breakdown of what's happening and why it's complicated:\n\n**The Situation - A Negotiation Stalemate:**\n\n* **Nippon Steel's Proposal:** Nippon Steel, a Japanese steel producer, proposed a deal involving a significant buyout of several U.S. steel companies \u2013 including those owned by companies like Reynolds and Company.\n* **Biden's Concerns:** President Biden has expressed concerns about the deal's impact on American workers, particularly in the steel industry. He has repeatedly stated that the deal undermines American competitiveness.\n* **Negotiations:** Negotiations between Nippon Steel and the U.S. government have been ongoing for several years. There have been several rounds of discussions, but progress has been slow and fraught with obstacles.\n* **January 2025 Timeline:** In January 2025, the Biden administration signaled they would be initiating new negotiations to address the concerns and complete the deal.\n\n**What's Happening Now:**\n\n* **Increased Pressure:**  There is growing pressure on both sides to find a resolution.  The Biden administration has been more insistent on a new agreement.\n* **Legal Challenges:** There have been legal challenges to the deal's structure, particularly regarding the terms of the buyout.\n* **Focus on Alternatives:** The Biden administration is exploring alternative options, including potential government intervention to support American steelworkers and industries.\n\n\n**In short, while the deal remains stalled, the Biden administration has explicitly signaled its intention to push for a new negotiation in January 2025.**\n\n**Resources for Updates:**\n\n* **Reuters:** [https://www.reuters.com/business/energy/npp-steel-deal-2025-update-2023-11-02/](https://www.reuters.com/business/energy/npp-steel-deal-2025-update-2023-11-02/)\n* **Bloomberg:** [https://www.bloomberg.com/news/articles/2023-11-02/npp-steel-deal-continues-to-show-challenges](https://www.bloomberg.com/news/articles/2023-11-02/npp-steel-deal-continues-to-show-challenges)\n\nTo get the most up-to-date information, I recommend following these news sources closely.",
-          "score": 1,
-          "explanation": "Found correct answer: 'U.S. Steel'"
+          "response": "I don\u2019t know",
+          "confidence": 0.2,
+          "reasoning": "Information is limited.",
+          "score": 0,
+          "explanation": "No correct answers found in response",
+          "raw_response": "{\n  \"answer\": \"I don\u2019t know\",\n  \"confidence\": 0.2,\n  \"reasoning\": \"Information is limited.\"\n}"
         },
         "rag": {
-          "response": "President Biden blocked.\n",
+          "response": "I dont know",
+          "confidence": 0.2,
+          "reasoning": "The context doesn't specify which U.S. company's buyout was blocked by President Biden.",
           "score": 0,
           "explanation": "No correct answers found in response",
           "retrieved_docs_count": 4,
-          "context_preview": "Biden Blocks Takeover Bid of U.S. Steel by Japan\u2019s Nippon - The New York Times\n\ncommittee of national security and trade experts across the executive branch determined, this acquisition would place one of America\u2019s largest steel producers under foreign control and create risk for our national security and our critical supply chains,\u201d Mr. Biden said, pointing to the concerns that the committee highlighted.His decision could face challenges in court. Nippon has indicated that it was prepared to ta..."
+          "context_preview": "Biden Blocks Takeover Bid of U.S. Steel by Japan\u2019s Nippon - The New York Times\n\nof national security and trade experts across the executive branch determined, this acquisition would place one of America\u2019s largest steel producers under foreign control and create risk for our national security and our critical supply chains,\u201d Mr. Biden said, pointing to the concerns that the committee highlighted.His decision could face challenges in court. Nippon has indicated that it was prepared to take legal a...",
+          "raw_response": "{\n    \"answer\": \"I dont know\",\n    \"confidence\": 0.2,\n    \"reasoning\": \"The context doesn't specify which U.S. company's buyout was blocked by President Biden.\"\n}"
         },
         "ground_truth": [
           "U.S. Steel",

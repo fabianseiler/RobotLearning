@@ -112,7 +112,7 @@ class ContinuousOMNode:
 
             # Execute pick and place
             pick_position = np.array(trans)
-            pick_position = pick_position + np.array([0.0 0.02, 0.04]) # set offset
+            pick_position = pick_position + np.array([0.0, 0.02, 0.04]) # set offset
             #self.om_node.execute_pick(pick_position)
 
             # Define a place position or reuse pick_position
